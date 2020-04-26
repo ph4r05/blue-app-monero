@@ -16,6 +16,7 @@
 #*******************************************************************************
 
 TARGET_NAME := TARGET_NANOX
+TARGET_OPTS ?= ""
 
 -include Makefile.env
 ifeq ($(BOLOS_SDK),)
@@ -64,6 +65,7 @@ endif
 #DEFINES   += DEBUG_HWDEVICE
 #DEFINES   += IODUMMYCRYPT
 #DEFINES   += IONOCRYPT
+DEFINES    += $(TARGET_OPTS)
 
 ################
 # Default rule #
@@ -108,6 +110,7 @@ DEFINES       += HAVE_BLE BLE_COMMAND_TIMEOUT_MS=2000
 DEFINES       += HAVE_BLE_APDU # basic ledger apdu transport over BLE
 else
 DEFINES		  += IO_SEPROXYHAL_BUFFER_SIZE_B=128
+DEFINES		  += HAVE_BOLOS_UX COMPLIANCE_UX_160 HAVE_UX_LEGACY 
 endif
 
 

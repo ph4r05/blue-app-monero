@@ -346,7 +346,8 @@ unsigned int ui_export_viewkey_button(unsigned int button_mask, unsigned int but
 void ui_menu_network_action(unsigned int value);
 const ux_menu_entry_t ui_menu_network[] = {
   {NULL,   NULL,                   0,        NULL, "It will reset", "the application!", 0, 0},
-  {NULL,   ui_menu_main_display,   0,                                      &C_badge_back, "Abort",         NULL,          61, 40},
+  //{NULL,   ui_menu_main_display,   0,                                      &C_badge_back, "Abort",         NULL,          61, 40},
+  {NULL,   ui_menu_main_display,   0,                                      NULL, "Abort",         NULL,          61, 40},
   {NULL,   ui_menu_network_action, TESTNET,  NULL, "Test Network ",  NULL,          0, 0},
   {NULL,   ui_menu_network_action, STAGENET, NULL, "Stage Network", NULL,          0, 0},
   #ifndef MONERO_ALPHA
@@ -391,7 +392,7 @@ void ui_menu_network_display(unsigned int value) {
 
 const ux_menu_entry_t ui_menu_reset[] = {
   {NULL,   NULL,                 0, NULL,          "Really Reset ?", NULL, 0, 0},
-  {NULL,   ui_menu_main_display, 0, &C_badge_back, "No",         NULL, 61, 40},
+  {NULL,   ui_menu_main_display, 0, NULL, "No",         NULL, 61, 40},
   {NULL,   ui_menu_reset_action, 0, NULL,          "Yes",           NULL, 0, 0},
   UX_MENU_END
 };
@@ -409,7 +410,9 @@ const ux_menu_entry_t ui_menu_settings[] = {
   {NULL,     ui_menu_network_display,     0, NULL,          "Change Network",  NULL, 0, 0},
   {NULL,        ui_menu_words_display,    0, NULL,          "Show 25 words",   NULL, 0, 0},
   {ui_menu_reset,               NULL,     0, NULL,          "Reset",           NULL, 0, 0},
-  {NULL,        ui_menu_main_display,     2, &C_badge_back, "Back",            NULL, 61, 40},
+  //{NULL,        ui_menu_main_display,     2, &C_badge_back, "Back",            NULL, 61, 40},
+  {NULL,        ui_menu_main_display,     2, NULL, "Back",            NULL, 61, 40},
+
   UX_MENU_END
 };
 
@@ -429,7 +432,8 @@ const ux_menu_entry_t ui_menu_info[] = {
   {NULL,  NULL,                 -1, NULL,          "(c) Ledger SAS",           NULL, 0, 0},
   {NULL,  NULL,                 -1, NULL,          "Spec  " XSTR(SPEC_VERSION),NULL, 0, 0},
   {NULL,  NULL,                 -1, NULL,          "App  " XSTR(MONERO_VERSION),  NULL, 0, 0},
-  {NULL,  ui_menu_main_display,  3, &C_badge_back, "Back",                     NULL, 61, 40},
+  //{NULL,  ui_menu_main_display,  3, &C_badge_back, "Back",                     NULL, 61, 40},
+  {NULL,  ui_menu_main_display,  3, NULL, "Back",                     NULL, 61, 40},
   UX_MENU_END
 };
 
@@ -451,7 +455,9 @@ const ux_menu_entry_t ui_menu_pubaddr[] = {
   {NULL,  NULL,                  6,          NULL,  "l4.1",     "l4.2",   0, 0},
   {NULL,  NULL,                  7,          NULL,  "l5.1",     "l5.2",   0, 0},
   //{NULL,  ui_menu_main_display,  0, &C_badge_back, "Back",                     NULL, 61, 40},
-  {NULL,  ui_menu_pubaddr_action,  0, &C_badge_back, "Ok",                     NULL, 61, 40},
+  {NULL,  ui_menu_main_display,  0, NULL, "Back",                     NULL, 61, 40},
+  //{NULL,  ui_menu_pubaddr_action,  0, &C_badge_back, "Ok",                     NULL, 61, 40},
+  {NULL,  ui_menu_pubaddr_action,  0, NULL, "Ok",                     NULL, 61, 40},
   UX_MENU_END
 };
 
@@ -610,7 +616,8 @@ const ux_menu_entry_t ui_menu_main[] = {
   {NULL,    ui_menu_pubaddr_display,  0, NULL,              "XMR",            "", 0, 0},
   {ui_menu_settings,           NULL,  0, NULL,              "Settings",    NULL, 0, 0},
   {ui_menu_info,               NULL,  0, NULL,              "About",       NULL, 0, 0},
-  {NULL,              os_sched_exit,  0, &C_icon_dashboard, "Quit app" ,   NULL, 50, 29},
+  //{NULL,              os_sched_exit,  0, &C_icon_dashboard, "Quit app" ,   NULL, 50, 29},
+  {NULL,              os_sched_exit,  0, NULL, "Quit app" ,   NULL, 50, 29},
   UX_MENU_END
 };
 
