@@ -85,7 +85,12 @@ void monero_init_private_key() {
   // m / 44'      / 128'       / 0'       / 0      / 0
   path[0] = 0x8000002C;
   path[1] = 0x80000080;
+#if defined(USE_DEMO_ADDR)
+  #warning USE_DEMO_ADDR activated
+  path[2] = 0x8BEEEF00;
+#else
   path[2] = 0x80000000;
+#endif
   path[3] = 0x00000000;
   path[4] = 0x00000000;
   os_perso_derive_node_bip32(CX_CURVE_SECP256K1, path, 5 , seed, chain);
