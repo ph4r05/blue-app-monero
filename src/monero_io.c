@@ -26,6 +26,9 @@
   #warning IONOCRYPT activated
 #endif
 
+#if defined(IOCUSTOMCRYPT)
+  #warning IOCUSTOMCRYPT activated
+#endif
 
 /*
  * io_buff: contains current message part
@@ -120,6 +123,10 @@ void monero_io_insert_encrypt(unsigned char* buffer, int len) {
     }
 #elif defined(IONOCRYPT)
   os_memmove(G_monero_vstate.io_buffer+G_monero_vstate.io_offset, buffer, len);
+#elif defined(IOCUSTOMCRYPT)
+  AES_ctx_set_iv(&G_monero_vstate.spk, C_FAKE_SEC_VIEW_KEY);
+  os_memmove(G_monero_vstate.io_buffer+G_monero_vstate.io_offset, buffer, len);
+  AES_CBC_encrypt_buffer(&G_monero_vstate.spk, G_monero_vstate.io_buffer+G_monero_vstate.io_offset, len);
 #else
   cx_aes(&G_monero_vstate.spk, CX_ENCRYPT|CX_CHAIN_CBC|CX_LAST|CX_PAD_NONE,
          buffer, len,
@@ -242,6 +249,10 @@ int monero_io_fetch_decrypt(unsigned char* buffer, int len) {
     }
 #elif defined(IONOCRYPT)
      os_memmove(buffer, G_monero_vstate.io_buffer+G_monero_vstate.io_offset, len);
+#elif defined(IOCUSTOMCRYPT)
+     AES_ctx_set_iv(&G_monero_vstate.spk, C_FAKE_SEC_VIEW_KEY);
+     os_memmove(buffer, G_monero_vstate.io_buffer+G_monero_vstate.io_offset, len);
+     AES_CBC_decrypt_buffer(&G_monero_vstate.spk, buffer, len);
 #else //IOCRYPT
     cx_aes(&G_monero_vstate.spk, CX_DECRYPT|CX_CHAIN_CBC|CX_LAST|CX_PAD_NONE,
            G_monero_vstate.io_buffer+G_monero_vstate.io_offset, len,

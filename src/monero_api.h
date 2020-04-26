@@ -154,8 +154,8 @@ void monero_clear_words();
 extern const unsigned char C_ED25519_ORDER[];
 
 
-void monero_aes_derive(cx_aes_key_t *sk, unsigned char *seed32, unsigned char *a, unsigned char *b);
-void monero_aes_generate(cx_aes_key_t *sk);
+void monero_aes_derive(AES_CTX *sk, unsigned char *seed32, unsigned char *a, unsigned char *b);
+void monero_aes_generate(AES_CTX *sk);
 
 /* Compute Monero-Hash of data*/
 void monero_hash_init_keccak(cx_hash_t * hasher);

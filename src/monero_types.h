@@ -18,6 +18,13 @@
 
 #include "os_io_seproxyhal.h"
 
+#if defined(IOCUSTOMCRYPT)
+#include "monero_aes.h"
+typedef struct AES_ctx AES_CTX;
+#else
+typedef cx_aes_key_t AES_CTX;
+#endif
+
 #if CX_APILEVEL == 8
 #define PIN_VERIFIED (!0)
 #elif CX_APILEVEL == 9 ||  CX_APILEVEL == 10
@@ -143,7 +150,7 @@ struct monero_v_state_s {
   unsigned char B[32];
 
   /* SPK */
-  cx_aes_key_t spk;
+  AES_CTX spk;
   unsigned char hmac_key[32];
 
   /* Tx state machine */

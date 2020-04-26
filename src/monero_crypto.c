@@ -55,7 +55,7 @@ unsigned char const C_EIGHT[32] = {
 /* ----------------------------------------------------------------------- */
 /* ---                                                                 --- */
 /* ----------------------------------------------------------------------- */
-void monero_aes_derive(cx_aes_key_t *sk, unsigned char* seed32, unsigned char *a, unsigned char *b) {
+void monero_aes_derive(AES_CTX *sk, unsigned char* seed32, unsigned char *a, unsigned char *b) {
     unsigned char  h1[32];
 
     monero_keccak_init_H();
@@ -66,13 +66,21 @@ void monero_aes_derive(cx_aes_key_t *sk, unsigned char* seed32, unsigned char *a
 
     monero_keccak_H(h1,32,h1);
 
+#if defined(IOCUSTOMCRYPT)
+    AES_init_ctx_iv(sk, h1, C_FAKE_SEC_VIEW_KEY);
+#else
     cx_aes_init_key(h1,16,sk);
+#endif
 }
 
-void monero_aes_generate(cx_aes_key_t *sk) {
+void monero_aes_generate(AES_CTX *sk) {
     unsigned char  h1[16];
     cx_rng(h1,16);
+#if defined(IOCUSTOMCRYPT)
+    AES_init_ctx_iv(sk, h1, C_FAKE_SEC_VIEW_KEY);
+#else
     cx_aes_init_key(h1,16,sk);
+#endif
 }
 
 /* ----------------------------------------------------------------------- */
